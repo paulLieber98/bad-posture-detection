@@ -4,6 +4,7 @@ import cv2 as cv
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+import time
 
 cam = cv.VideoCapture(1)
 
@@ -22,8 +23,10 @@ PoseLandmarkerResult = mp.tasks.vision.PoseLandmarkerResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 
 # Create a pose landmarker instance with the live stream mode:
+#EACH TIME BODY IS DETECTED, THIS FUNCTION IS CALLED
 def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp_ms: int):
-    print('pose landmarker result: {}'.format(result))
+    # print('pose landmarker result: {}'.format(result))
+    print('hi')
 
 options = PoseLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=model_path),
@@ -33,6 +36,14 @@ options = PoseLandmarkerOptions(
 with PoseLandmarker.create_from_options(options) as landmarker:
   while True:
     ret, frame = cam.read()
+
+    #converting frames from opencv to mediapipe image
+    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+
+    #now timestamp + detect 
+    frame_timestamp_ms = int(time.time() * 1000)
+    landmarker.detect_async(mp_image, frame_timestamp_ms)
+
 
     # Display the captured frame
     cv.imshow('Camera', frame)
