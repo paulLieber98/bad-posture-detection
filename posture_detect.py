@@ -37,10 +37,10 @@ def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp
                 print(f'ear landmark 7. x: {pose_landmarks[7].x}, y: {pose_landmarks[7].y}, z: {pose_landmarks[7].z}')
             
             if len(pose_landmarks) > 11:
-                print(f'shoulder landmark 12. x: {pose_landmarks[11].x}, y: {pose_landmarks[11].y}, z: {pose_landmarks[11].z}')
+                print(f'shoulder landmark 11. x: {pose_landmarks[11].x}, y: {pose_landmarks[11].y}, z: {pose_landmarks[11].z}')
             
             if len(pose_landmarks) > 23:
-                print(f'hip landmark 24. x: {pose_landmarks[23].x}, y: {pose_landmarks[23].y}, z: {pose_landmarks[23].z}')
+                print(f'hip landmark 23. x: {pose_landmarks[23].x}, y: {pose_landmarks[23].y}, z: {pose_landmarks[23].z}')
     except:
         pass #ignore errors and continue
 
