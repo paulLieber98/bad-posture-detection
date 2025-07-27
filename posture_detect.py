@@ -25,8 +25,25 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 # Create a pose landmarker instance with the live stream mode:
 #EACH TIME BODY IS DETECTED, THIS FUNCTION IS CALLED
 def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp_ms: int):
-    # print('pose landmarker result: {}'.format(result))
-    print('hi')
+    
+    try:
+        if result.pose_landmarks and len(result.pose_landmarks) > 0:
+            pose_landmarks = result.pose_landmarks[0]
+            
+            if len(pose_landmarks) > 7:
+            #this only runs if landmark 7 exists unlike this:
+            # This crashes if landmark 7 doesn't exist
+            # print(pose_landmarks[7].x)  # IndexError if len < 8
+                print(f'ear landmark 7. x: {pose_landmarks[7].x}, y: {pose_landmarks[7].y}, z: {pose_landmarks[7].z}')
+            
+            if len(pose_landmarks) > 12:
+                print(f'shoulder landmark 12. x: {pose_landmarks[12].x}, y: {pose_landmarks[12].y}, z: {pose_landmarks[12].z}')
+            
+            if len(pose_landmarks) > 24:
+                print(f'hip landmark 24. x: {pose_landmarks[24].x}, y: {pose_landmarks[24].y}, z: {pose_landmarks[24].z}')
+    except:
+        pass #ignore errors and continue
+
 
 options = PoseLandmarkerOptions(
     base_options=BaseOptions(model_asset_path=model_path),
