@@ -36,11 +36,11 @@ def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp
             # print(pose_landmarks[7].x)  # IndexError if len < 8
                 print(f'ear landmark 7. x: {pose_landmarks[7].x}, y: {pose_landmarks[7].y}, z: {pose_landmarks[7].z}')
             
-            if len(pose_landmarks) > 12:
-                print(f'shoulder landmark 12. x: {pose_landmarks[12].x}, y: {pose_landmarks[12].y}, z: {pose_landmarks[12].z}')
+            if len(pose_landmarks) > 11:
+                print(f'shoulder landmark 12. x: {pose_landmarks[11].x}, y: {pose_landmarks[11].y}, z: {pose_landmarks[11].z}')
             
-            if len(pose_landmarks) > 24:
-                print(f'hip landmark 24. x: {pose_landmarks[24].x}, y: {pose_landmarks[24].y}, z: {pose_landmarks[24].z}')
+            if len(pose_landmarks) > 23:
+                print(f'hip landmark 24. x: {pose_landmarks[23].x}, y: {pose_landmarks[23].y}, z: {pose_landmarks[23].z}')
     except:
         pass #ignore errors and continue
 
@@ -59,7 +59,7 @@ with PoseLandmarker.create_from_options(options) as landmarker:
 
     #now timestamp + detect 
     frame_timestamp_ms = int(time.time() * 1000)
-    landmarker.detect_async(mp_image, frame_timestamp_ms)
+    landmarker.detect_async(mp_image, frame_timestamp_ms) #actually detect
 
 
     # Display the captured frame
