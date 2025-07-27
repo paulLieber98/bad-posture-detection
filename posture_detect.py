@@ -84,7 +84,9 @@ def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp
             current_time = time.time()
             ding_cooldown = 5 #seconds
 
-            if theta_angle_degrees > 125 and (current_time - last_ding_time) > ding_cooldown: #110 degrees is the threshold for bad posture
+            posture_threshold = 125 #degrees
+
+            if theta_angle_degrees > posture_threshold and (current_time - last_ding_time) > ding_cooldown: 
                 last_ding_time = current_time
                 pygame.mixer.music.load('/Users/paullieber/bad-posture-detect/ding-36029.mp3')
                 pygame.mixer.music.play()
@@ -92,11 +94,6 @@ def print_result(result: PoseLandmarkerResult, output_image: mp.Image, timestamp
                 print(f"bad posture !! Angle: {theta_angle_degrees:.1f} degrees")
 
 
-
-
-            
-
-        
     except:
         pass #ignore errors and continue
 
